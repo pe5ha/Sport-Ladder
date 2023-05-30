@@ -15,7 +15,7 @@ let textToSend;
 let language_code;
 
 // users data arrays gets from Users sheet
-let usersData; 
+let usersData = []; 
 
 // let token = process.env.BOT_TOKEN;
 let token = PropertiesService.getScriptProperties().getProperty('BOT_TOKEN');

@@ -29,17 +29,12 @@ let UserRoles = {
 
 }
 
-// User tariff
-let UserTariff = {
-  premium: "Премиум",
-  basic: "Базовый"
-}
 
 //User Current Actions (use cases)
 let UserActions = {
   without_action: "",
-  read_story: "read_story",
-  ask_question: "ask_question",
+  input_phone: "input_phone",
+  input_bio: "input_bio",
 }
 
 

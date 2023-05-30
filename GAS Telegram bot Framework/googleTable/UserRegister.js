@@ -25,7 +25,14 @@
   // добавление юзера
   if (row === -1) { // если юзер с таким id не записан, то регистрируем его
     user = makeUser(2,user_id,nick,name,null,null,null,true);
-    let userData = [[stringDate(),user.telegramID,user.nick,user.name,language_code,user.currentAction,user.role,user.tariff]]; // массив данных пользователя
+    user.rowInTable = row;
+    user.telegramID = user_id;
+    user.nick = nick;
+    user.name = name;
+    user.currentAction = null;
+    user.role = null;
+    user.isNewUser = true;
+    let userData = [[stringDate(),user.telegramID,user.nick,user.name,language_code,user.currentAction,user.role]]; // массив данных пользователя
     // userData[0].push(surname); // фамилия
     
     tUsers.use().insertRowBefore(2); // в лист юзеров вставляется новая строка сверху (после заголовков)
@@ -49,14 +56,27 @@
     if (usersData[i][tUsers.getCol(tUsers.name_Title)] !== name) {
       tUsers.use().getRange(row, tUsers.getCol(tUsers.name_Title)+1).setValue(name);
     }
-    user = makeUser(
-      row,
-      user_id,
-      nick,
-      usersData[i][tUsers.getCol(tUsers.name_Title)],
-      usersData[i][tUsers.getCol(tUsers.current_action_Title)],
-      usersData[i][tUsers.getCol(tUsers.role_Title)],
-    );
+    user.rowInTable = row;
+    user.telegramID = user_id;
+    user.nick = nick;
+    user.name = usersData[i][tUsers.getCol(tUsers.name_Title)];
+    user.currentAction = usersData[i][tUsers.getCol(tUsers.current_action_Title)];
+    user.role = usersData[i][tUsers.getCol(tUsers.role_Title)];
+    user.isNewUser = false;
+    user.phone = usersData[i][tUsers.getCol(tUsers.phone_Title)];
+    user.bio = usersData[i][tUsers.getCol(tUsers.bio_Title)];
+    user.rating = usersData[i][tUsers.getCol(tUsers.rating_Title)];
+
+
+
+    // user = makeUser(
+    //   row,
+    //   user_id,
+    //   nick,
+    //   usersData[i][tUsers.getCol(tUsers.name_Title)],
+    //   usersData[i][tUsers.getCol(tUsers.current_action_Title)],
+    //   usersData[i][tUsers.getCol(tUsers.role_Title)],
+    // );
     return false;
   }
 }

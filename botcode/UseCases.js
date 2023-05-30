@@ -4,15 +4,40 @@
  */
 function useCases(){
   // start
-  if (text.startsWith("/start ")) { 
+
+  if(user.currentAction == UserActions.input_phone){
+    if(contents.message.contact) {
+      user.setUserPhone(contents.message.contact.phone_number);
+      user.setUserCurrentAction(UserActions.input_bio);
+      botSendMessage(chat_id, needBio);
+      return;
+    }
+  }
+
+  if(user.currentAction == UserActions.input_bio){
+    user.setUserBio(text);
+    user.setUserCurrentAction(UserActions.without_action);
+    user.setUserRole("участник");
+    user.setRating(1000);
+    botSendMessage(chat_id, regDone);
+    return;
+  }
+
+  if(!checkLadderReg()) return;
+
+  else if (text.startsWith("/start ")) { 
     let payload = text.split(" ")[1];
     startCommand(payload);
   }
   else if (text == "/start") {
     startCommand();
   }
+  // else if (text == "/ladderreg") {
+  //   ladderReg();
+  // }
+
   
-  botSendMessage(chat_id, text);
+  sendPlayerCard();
 
 }
 
@@ -22,10 +47,7 @@ function startCommand(payload=null){
     if(payload){ // реферал
       
     }
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! eудалить потом
-    // if(payload=="giveadmin234324"){
-    //   setUserRole(user,UserRoles.admin);
-    // }
+
   }
 
   // deep link
@@ -34,7 +56,6 @@ function startCommand(payload=null){
   }
   // просто /start
   else{
-    botSendMessage(chat_id,"Старт");
 
   }
 }
