@@ -20,6 +20,7 @@ function useCases(){
     user.setUserRole("участник");
     user.setRating(1000);
     botSendMessage(chat_id, regDone);
+    sendPlayerCard();
     return;
   }
 
