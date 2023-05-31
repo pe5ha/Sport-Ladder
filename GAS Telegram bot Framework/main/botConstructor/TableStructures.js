@@ -1,4 +1,89 @@
 
+
+// Matches sheet structure
+let tMatches = {
+  sheetName: "Матчи",
+  id_Title: "матч id",
+  id_p1_Title: "id 1",
+  id_p2_Title: "id 2",
+  name_p1_Title: "игрок 1",
+  name_p2_Title: "игрок 2",
+  result_Title: "результат",
+  rating_change_p1_Title: "изм. рейт. 1",
+  rating_change_p2_Title: "изм. рейт. 2",
+  date_Title: "дата матча",
+  record_date_Title: "дата записи",
+  allRange: "A:J",
+  getColumnsOrder(){
+    return [
+      this.id_Title,
+      this.id_p1_Title,
+      this.id_p2_Title,
+      this.name_p1_Title,
+      this.name_p2_Title,
+      this.result_Title,
+      this.rating_change_p1_Title,
+      this.rating_change_p2_Title,
+      this.date_Title,
+      this.record_date_Title,
+    ];
+  },
+  getCol(columnTitle){
+    return this.getColumnsOrder().indexOf(columnTitle);
+  },
+  use(){
+    if(table.getSheetByName(this.sheetName) == null) { // если такого листа нет
+      table.insertSheet(this.sheetName); // то такой лист создаётся
+      let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
+      this.use().getRange(1,1,1,this.getColumnsOrder().length).setValues([this.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
+    }
+    return table.getSheetByName(this.sheetName);
+  }
+}
+
+
+// Matches sheet structure
+let tPendingMatches = {
+  sheetName: "Матчи (ожидают)",
+  id_Title: "матч id",
+  id_p1_Title: "id 1",
+  id_p2_Title: "id 2",
+  name_p1_Title: "игрок 1",
+  name_p2_Title: "игрок 2",
+  result_Title: "результат",
+  p1_confirmed_Title: "подтвердил 1",
+  p2_confirmed_Title: "подтвердил 2",
+  date_Title: "дата матча",
+  record_date_Title: "дата записи",
+  allRange: "A:J",
+  getColumnsOrder(){
+    return [
+      this.id_Title,
+      this.id_p1_Title,
+      this.id_p2_Title,
+      this.name_p1_Title,
+      this.name_p2_Title,
+      this.result_Title,
+      this.p1_confirmed_Title,
+      this.p2_confirmed_Title,
+      this.date_Title,
+      this.record_date_Title,
+    ];
+  },
+  getCol(columnTitle){
+    return this.getColumnsOrder().indexOf(columnTitle);
+  },
+  use(){
+    if(table.getSheetByName(this.sheetName) == null) { // если такого листа нет
+      table.insertSheet(this.sheetName); // то такой лист создаётся
+      let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
+      this.use().getRange(1,1,1,this.getColumnsOrder().length).setValues([this.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
+    }
+    return table.getSheetByName(this.sheetName);
+  }
+}
+
+
 // Users sheet structure
 let tUsers = {
   sheetName: "Users",

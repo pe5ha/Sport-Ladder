@@ -13,4 +13,11 @@ function buttonsUseCases(data){
     }
     botSendMessage(chat_id, rating_list, null, "HTML", true);
   }
+  else if(data == "matches"){
+    sendUserMatches();
+  }
+  else if(String(data).startsWith("confirm")){
+    let matchId = String(data).split("_")[1];
+    matchConfirmation(matchId);
+  }
 }

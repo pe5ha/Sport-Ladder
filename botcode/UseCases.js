@@ -35,9 +35,9 @@ function useCases(){
   // else if (text == "/ladderreg") {
   //   ladderReg();
   // }
-
+  else gameRecord();
   
-  sendPlayerCard();
+  
 
 }
 
@@ -56,7 +56,7 @@ function startCommand(payload=null){
   }
   // просто /start
   else{
-
+    sendPlayerCard();
   }
 }
 
