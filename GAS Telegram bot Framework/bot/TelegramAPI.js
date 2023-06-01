@@ -63,7 +63,7 @@ copyMessage(token,chat_id,from_chat_id,message_id,keyboard=null){
   return sendData(token,data);
 },
 
-editMessage(token,chat_id,message_id,txt,keyboard=null){
+editMessage(token,chat_id,message_id,txt,keyboard=null,parsemode="HTML",disableWebPagePreview=false){
   // если без кнопок сообщение то клавиатура null
   if(keyboard!=null) keyboard = JSON.stringify(keyboard);
 
@@ -74,8 +74,9 @@ editMessage(token,chat_id,message_id,txt,keyboard=null){
       chat_id: String(chat_id),
       message_id: String(message_id),
       text: txt,
-      parse_mode: "HTML",
-      reply_markup: keyboard
+      reply_markup: keyboard,
+      parse_mode: parsemode,
+      disable_web_page_preview: disableWebPagePreview,
     },
     muteHttpExceptions: true
   };
@@ -136,9 +137,9 @@ sendMessage(token,chat_id,txt,keyboard=null,parsemode="HTML",disableWebPagePrevi
       method: "sendMessage",
       chat_id: String(chat_id),
       text: txt,
-      parse_mode: parsemode,
       reply_markup: keyboard,
-      disable_web_page_preview: disableWebPagePreview
+      parse_mode: parsemode,
+      disable_web_page_preview: disableWebPagePreview,
     },
     muteHttpExceptions: true
   };
