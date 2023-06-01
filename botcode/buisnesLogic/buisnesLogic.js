@@ -84,14 +84,13 @@ function matchEdit(matchId){
         {text: "3-2",callback_data: "edit_3-2_"+match.matchId},
         {text: "2-0",callback_data: "edit_2-0_"+match.matchId},
         {text: "2-1",callback_data: "edit_2-1_"+match.matchId},
-        {text: "ret2",callback_data: "edit_ret2_"+match.matchId}],
+      ],
       [ 
         {text: "0-3",callback_data: "edit_0-3_"+match.matchId},
         {text: "1-3",callback_data: "edit_1-3_"+match.matchId},
         {text: "2-3",callback_data: "edit_2-3_"+match.matchId},
         {text: "0-2",callback_data: "edit_0-2_"+match.matchId},
         {text: "1-2",callback_data: "edit_1-2_"+match.matchId},
-        {text: "ret1",callback_data: "edit_ret1_"+match.matchId},
       ]
     ]
   };

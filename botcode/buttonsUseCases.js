@@ -1,17 +1,7 @@
 function buttonsUseCases(data){
 
   if(data == "rating_list"){
-    usersData.sort(function(a,b){
-      return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
-    });
-    let rating_list = "Рейтинг-лист игроков:\n";
-    for(let i=1; i<10;i++){
-      if(i>=usersData.length) break;
-      if(!usersData[i][1]) break;
-      let user_link = userLink(usersData[i][tUsers.getCol(tUsers.nick_Title)], usersData[i][tUsers.getCol(tUsers.name_Title)])
-      rating_list += i+". <b>"+ user_link +"</b> - "+ usersData[i][tUsers.getCol(tUsers.rating_Title)]+"\n";
-    }
-    botSendMessage(chat_id, rating_list, null, "HTML", true);
+    ratingList();
   }
   else if(data == "matches"){
     sendUserMatches();
@@ -34,5 +24,9 @@ function buttonsUseCases(data){
     let matchId = String(data).split("_")[2];
     let matchResult = String(data).split("_")[1];
     matchEditResult(matchId, matchResult);
+  }
+  else if(String(data).startsWith("ratingpage")){
+    let page = parseInt(String(data).split("_")[1]);
+    ratingList(page);
   }
 }

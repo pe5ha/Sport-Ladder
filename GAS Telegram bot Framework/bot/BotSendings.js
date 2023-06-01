@@ -12,7 +12,7 @@
 function botEditMessage(chat_id,message_id, textToSend,keyboard=null,parsemode="HTML",disableWebPagePreview=false){
   // if(!keyboard) keyboard = { remove_keyboard: true };
 
-  let telegramResp = TelegramAPI.editMessage(token, chat_id,message_id, textToSend,keyboard);
+  let telegramResp = TelegramAPI.editMessage(token, chat_id,message_id, textToSend, keyboard, parsemode, disableWebPagePreview);
   afterSending(telegramResp,"(Бот изменил)");
 }
 
