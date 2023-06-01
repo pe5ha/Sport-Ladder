@@ -35,6 +35,7 @@ let UserActions = {
   without_action: "",
   input_phone: "input_phone",
   input_bio: "input_bio",
+  input_name: "input_name",
 }
 
 

@@ -4,7 +4,7 @@ function buttonsUseCases(data){
     usersData.sort(function(a,b){
       return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
     });
-    let rating_list = "Рейтинг-лист:\n";
+    let rating_list = "Рейтинг-лист игроков:\n";
     for(let i=1; i<10;i++){
       if(i>=usersData.length) break;
       if(!usersData[i][1]) break;
@@ -16,8 +16,23 @@ function buttonsUseCases(data){
   else if(data == "matches"){
     sendUserMatches();
   }
+  else if(data == "add_match"){
+    botSendMessage(chat_id,addMatchInfo);
+  }
+  else if(data == "profile_edit"){
+    botSendMessage(chat_id,profileEditInfo);
+  }
   else if(String(data).startsWith("confirm")){
     let matchId = String(data).split("_")[1];
     matchConfirmation(matchId);
+  }
+  else if(String(data).startsWith("change")){
+    let matchId = String(data).split("_")[1];
+    matchEdit(matchId);
+  }
+  else if(String(data).startsWith("edit")){
+    let matchId = String(data).split("_")[2];
+    let matchResult = String(data).split("_")[1];
+    matchEditResult(matchId, matchResult);
   }
 }

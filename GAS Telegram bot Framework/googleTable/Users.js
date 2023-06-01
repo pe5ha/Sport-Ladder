@@ -21,7 +21,11 @@ let user = {
   },
   setUserBio(newBio){
     tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.bio_Title)+1).setValue(newBio);
-    this.phone = newBio;
+    this.bio = newBio;
+  },
+  setUserName(newName){
+    tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.name_Title)+1).setValue(newName);
+    this.name = newName;
   },
   setRating(newRating){
     tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.rating_Title)+1).setValue(newRating);

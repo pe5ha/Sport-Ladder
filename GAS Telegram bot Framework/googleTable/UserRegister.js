@@ -53,9 +53,9 @@
     if (usersData[i][tUsers.getCol(tUsers.nick_Title)] !== nick) {
       tUsers.use().getRange(row, tUsers.getCol(tUsers.nick_Title)+1).setValue(nick);
     }
-    if (usersData[i][tUsers.getCol(tUsers.name_Title)] !== name) {
-      tUsers.use().getRange(row, tUsers.getCol(tUsers.name_Title)+1).setValue(name);
-    }
+    // if (usersData[i][tUsers.getCol(tUsers.name_Title)] !== name) {
+    //   tUsers.use().getRange(row, tUsers.getCol(tUsers.name_Title)+1).setValue(name);
+    // }
     user.rowInTable = row;
     user.telegramID = user_id;
     user.nick = nick;
