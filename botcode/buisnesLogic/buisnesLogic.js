@@ -98,37 +98,6 @@ function matchEdit(matchId){
 
 }
 
-function sendUserMatches(){
-  let matches = tMatches.use().getRange(tMatches.allRange).getValues();
-
-  let matchList = "Последние 10 сыгранных матчей:\n\n";
-  let k = 0;
-  for(let i=1;i<matches.length;i++){
-    if(matches[i][tMatches.getCol(tMatches.id_p1_Title)] == user_id
-    || matches[i][tMatches.getCol(tMatches.id_p2_Title)] == user_id){
-      let match = {
-        matchId: matches[i][tMatches.getCol(tMatches.id_Title)],
-        p1_id: matches[i][tMatches.getCol(tMatches.id_p1_Title)],
-        p2_id: matches[i][tMatches.getCol(tMatches.id_p2_Title)],
-        p1_name: matches[i][tMatches.getCol(tMatches.name_p1_Title)],
-        p2_name: matches[i][tMatches.getCol(tMatches.name_p2_Title)],
-        result: matches[i][tMatches.getCol(tMatches.result_Title)],
-        gameDate: matches[i][tMatches.getCol(tMatches.date_Title)],
-        recordDate: matches[i][tMatches.getCol(tMatches.record_date_Title)],
-        p1_rating: matches[i][tMatches.getCol(tMatches.p1_rating_Title)],
-        p2_rating: matches[i][tMatches.getCol(tMatches.p2_rating_Title)],
-        p1_rating_change: matches[i][tMatches.getCol(tMatches.rating_change_p1_Title)],
-        p2_rating_change: matches[i][tMatches.getCol(tMatches.rating_change_p2_Title)],
-      }
-      matchList+= buildMatchCard(match)+"\n\n";
-      k++;
-      if(k>=10) break;
-    }
-  }
-
-
-  botSendMessage(chat_id, matchList);
-}
 
 function gameRecord(){
   let opponentName = text.split("\n")[0];

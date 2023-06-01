@@ -1,4 +1,5 @@
 function ratingList(page=null){
+  TelegramAPI.sendChatAction(token,chat_id,"typing");
   usersData.sort(function(a,b){
     return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
   });

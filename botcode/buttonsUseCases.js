@@ -29,4 +29,8 @@ function buttonsUseCases(data){
     let page = parseInt(String(data).split("_")[1]);
     ratingList(page);
   }
+  else if(String(data).startsWith("matchespage")){
+    let page = parseInt(String(data).split("_")[1]);
+    sendUserMatches(page);
+  }
 }
