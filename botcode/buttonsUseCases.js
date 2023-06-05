@@ -33,4 +33,8 @@ function buttonsUseCases(data){
     let page = parseInt(String(data).split("_")[1]);
     sendUserMatches(page);
   }
+  else if(String(data).startsWith("user")){
+    let userId = parseInt(String(data).split("_")[1]);
+    sendPlayerProfile(userId);
+  }
 }

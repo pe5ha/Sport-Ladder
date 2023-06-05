@@ -33,6 +33,38 @@ function sendUserMatches(page=null){
     matchList+= buildMatchCard(match)+"\n\n";
   }
   matchList+="\nСтраница "+(page+1)+" из "+(totalPage+1);
+  // let keyboard = null;
+  // if((page-1)<0 && (page+1)>totalPage){
+
+  // }
+  // else if(!(page-1)<0){
+  //   keyboard = {
+  //     inline_keyboard: [
+  //       [
+  //         {text: "<",callback_data: "matchespage_"+(page-1)},
+  //       ],
+  //     ]
+  //   };
+  // }
+  // else if(!(page+1)>totalPage){
+  //   keyboard = {
+  //     inline_keyboard: [
+  //       [
+  //         {text: ">",callback_data: "matchespage_"+(page+1)},
+  //       ],
+  //     ]
+  //   };
+  // }
+  // else{
+  //   keyboard = {
+  //     inline_keyboard: [
+  //       [
+  //         {text: "<",callback_data: "matchespage_"+(page-1)},
+  //         {text: ">",callback_data: "matchespage_"+(page+1)},
+  //       ],
+  //     ]
+  //   };
+  // }
   let keyboard = {
     inline_keyboard: [
       [

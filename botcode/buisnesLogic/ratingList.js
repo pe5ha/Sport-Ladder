@@ -4,7 +4,7 @@ function ratingList(page=null){
     return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
   });
   let rating_list = "Рейтинг-лист игроков:\n";
-  let N = 20;
+  let N = 8;
   let isUpdate = true;
 
   if(page == null){
@@ -18,21 +18,21 @@ function ratingList(page=null){
   if(page<0) page = totalPage;
   // if(isUpdate && page==totalPage) return;
 
+  let keyboard = {inline_keyboard: [[]]};
   for(let i=page*N+1; i < page*N+1+N; i++){
     if(i>=usersData.length) break;
     if(!usersData[i][1]) break;
     let user_link = userLink(usersData[i][tUsers.getCol(tUsers.nick_Title)], usersData[i][tUsers.getCol(tUsers.name_Title)])
     rating_list += i+". <b>"+ user_link +"</b> - "+ usersData[i][tUsers.getCol(tUsers.rating_Title)]+"\n";
+    keyboard.inline_keyboard[0].push({text: i, callback_data: "user_"+usersData[i][tUsers.getCol(tUsers.id_Title)]});
   }
 
-  let keyboard = {
-    inline_keyboard: [
+  keyboard.inline_keyboard.push(
       [
         {text: (page-1)<0?" ":"<",callback_data: (page-1)<0?"emptybtn":("ratingpage_"+(page-1))},
         {text: (page+1)>totalPage?" ":">",callback_data: (page+1)>totalPage?"emptybtn":("ratingpage_"+(page+1))},
       ],
-    ]
-  };
+  );
 
   rating_list+="\nСтраница "+(page+1)+" из "+(totalPage+1);
   if(isUpdate){
