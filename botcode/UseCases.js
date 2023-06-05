@@ -8,21 +8,21 @@ function useCases(){
   if(user.currentAction == UserActions.input_phone){
     if(contents.message.contact) {
       user.setUserPhone(contents.message.contact.phone_number);
-      user.setUserCurrentAction(UserActions.input_bio);
-      botSendMessage(chat_id, needBio);
+      user.setUserCurrentAction(UserActions.input_name);
+      botSendMessage(chat_id, needName);
       return;
     }
+  }
+  
+  if(user.currentAction == UserActions.input_name){
+    user.setUserName(text);
+    user.setUserCurrentAction(UserActions.input_bio);
+    botSendMessage(chat_id, needBio);
+    return;
   }
 
   if(user.currentAction == UserActions.input_bio){
     user.setUserBio(text);
-    user.setUserCurrentAction(UserActions.input_name);
-    botSendMessage(chat_id, needName);
-    return;
-  }
-
-  if(user.currentAction == UserActions.input_name){
-    user.setUserName(text);
     user.setUserCurrentAction(UserActions.without_action);
     if(user.role != "участник"){
       user.setUserRole("участник");
@@ -32,6 +32,7 @@ function useCases(){
     sendPlayerCard();
     return;
   }
+
 
 
   if(!checkLadderReg()) return;

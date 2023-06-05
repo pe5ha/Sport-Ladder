@@ -11,6 +11,7 @@
     table.insertSheet(tUsers.sheetName); // то такой лист создаётся
     let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
     tUsers.use().getRange(1,1,1,tUsers.getColumnsOrder().length).setValues([tUsers.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
+    tUsers.use().deleteRows(3,998);
   }
   usersData = tUsers.use().getRange(tUsers.allRange).getValues(); // массив всех значений id
   let row = -1;
@@ -65,7 +66,10 @@
     user.isNewUser = false;
     user.phone = usersData[i][tUsers.getCol(tUsers.phone_Title)];
     user.bio = usersData[i][tUsers.getCol(tUsers.bio_Title)];
-    user.rating = usersData[i][tUsers.getCol(tUsers.rating_Title)];
+    user.rating = parseInt(usersData[i][tUsers.getCol(tUsers.rating_Title)]);
+    user.gamesCount = parseInt(usersData[i][tUsers.getCol(tUsers.games_count_Title)]);
+    user.achievements = usersData[i][tUsers.getCol(tUsers.achievements_Title)];
+
 
 
 

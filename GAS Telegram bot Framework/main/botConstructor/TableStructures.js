@@ -40,6 +40,7 @@ let tMatches = {
       table.insertSheet(this.sheetName); // то такой лист создаётся
       let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
       this.use().getRange(1,1,1,this.getColumnsOrder().length).setValues([this.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
+      this.use().deleteRows(3,998);
     }
     return table.getSheetByName(this.sheetName);
   }
@@ -86,6 +87,7 @@ let tPendingMatches = {
       table.insertSheet(this.sheetName); // то такой лист создаётся
       let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
       this.use().getRange(1,1,1,this.getColumnsOrder().length).setValues([this.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
+      this.use().deleteRows(3,998);
     }
     return table.getSheetByName(this.sheetName);
   }
@@ -105,7 +107,10 @@ let tUsers = {
   phone_Title: "номер",
   bio_Title: "о себе",
   rating_Title: "рейтинг",
-  allRange: "A:K",
+  last_game_Title: "Дата последней игры",
+  games_count_Title: "Всего игр в ладдере",
+  achievements_Title: "Ачивки",
+  allRange: "A:N",
   getColumnsOrder(){
     return [
       this.reg_date_Title,	
@@ -118,6 +123,9 @@ let tUsers = {
       this.phone_Title,
       this.bio_Title,
       this.rating_Title,
+      this.last_game_Title,
+      this.games_count_Title,
+      this.achievements_Title,
     ];
   },
   getCol(columnTitle){

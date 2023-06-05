@@ -11,6 +11,8 @@ let user = {
   phone: null,
   bio: null,
   rating: null,
+  gamesCount: null,
+  achievements: null,
   setUserRole(newRole){
     tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.role_Title)+1).setValue(newRole);
     this.role = newRole;
@@ -33,7 +35,11 @@ let user = {
   },
   setUserCurrentAction(currentAction){
     tUsers.use().getRange(this.rowInTable, tUsers.getCol(tUsers.current_action_Title)+1).setValue(currentAction);
-  }
+  },
+  setGamesCount(newGamesCount){
+    tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.games_count_Title)+1).setValue(newGamesCount);
+    this.gamesCount = newGamesCount;
+  },
 };
 
 function makeUser(rowInTable, telegramID,nick,name,currentAction=null,role=null,tariff=null,isNewUser=false){

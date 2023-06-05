@@ -35,8 +35,9 @@ function sendPlayerCard(){
 }
 
 function buildPlayerCard(){
-  let playerCard = "Профиль игрока: <b>"+userLink(user.nick, user.name)+"</b>\nРейтинг: <b>"+user.rating+"</b>"
-  +"\nБио: "+user.bio;
+  let playerCard = "Профиль игрока: <b>"+userLink(user.nick, user.name)+"</b>\nРейтинг: <b>"+user.rating+"</b>";
+  if(user.achievements) playerCard+="\nАчивки: "+user.achievements;
+  playerCard += "\nВсего игр: "+user.gamesCount+"\nБио: "+user.bio;
   //todo: +Дата регистрации, +Ачивки Кнопки: список матчей
 
   return playerCard;

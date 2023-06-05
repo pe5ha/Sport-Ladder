@@ -56,8 +56,10 @@ function matchConfirmation(matchId){
 
   let p1_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p1_id);
   let p2_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p2_id);
-  tUsers.use().getRange(p1_user_row+1,tUsers.getCol(tUsers.rating_Title)+1).setValue(match.p1_rating);
-  tUsers.use().getRange(p2_user_row+1,tUsers.getCol(tUsers.rating_Title)+1).setValue(match.p2_rating);
+  let p1_gamesCount = (parseInt(usersData[p1_user_row][tUsers.getCol(tUsers.games_count_Title)]) || 0) + 1;
+  let p2_gamesCount = (parseInt(usersData[p2_user_row][tUsers.getCol(tUsers.games_count_Title)]) || 0) + 1;
+  tUsers.use().getRange(p1_user_row+1,tUsers.getCol(tUsers.rating_Title)+1, 1, 3).setValues([[match.p1_rating, stringDate(), p1_gamesCount]]);
+  tUsers.use().getRange(p2_user_row+1,tUsers.getCol(tUsers.rating_Title)+1, 1, 3).setValues([[match.p2_rating, stringDate(), p2_gamesCount]]);
 
   tPendingMatches.use().deleteRow(row);
   
@@ -67,7 +69,7 @@ function matchConfirmation(matchId){
 
 /**
  * 
- * @param {Match} match // как сделать чтоб свойсвтва объекта видны были?
+ * @param {Match} match // как чтобы свойсвтва объекта видны были
  */
 function processRatingChange(match){
   let winner = whoWinner(match.result);

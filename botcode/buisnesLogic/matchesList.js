@@ -2,7 +2,7 @@
 function sendUserMatches(page=null){
   TelegramAPI.sendChatAction(token,chat_id,"typing");
   let matches = tMatches.use().getRange(tMatches.allRange).getValues();
-  matches = matches.filter(m => m[tMatches.getCol(tMatches.id_p1_Title)] == user_id);
+  matches = matches.filter(m => m[tMatches.getCol(tMatches.id_p1_Title)] == user_id || m[tMatches.getCol(tMatches.id_p2_Title)] == user_id);
 
   let N = 10;
   let isUpdate = true;
@@ -13,7 +13,7 @@ function sendUserMatches(page=null){
     page = 0;
   }
   let matchList = "Сыгранные матчи:\n\n";
-  for(let i=page*N+1;i < page*N+1+N;i++){
+  for(let i=page*N;i < page*N+N;i++){
     if(i>=matches.length) break;
     if(!matches[i][0]) break;
     let match = {
