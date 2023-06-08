@@ -3,6 +3,9 @@ function buttonsUseCases(data){
   if(data == "rating_list"){
     ratingList();
   }
+  else if(data == "rating_refresh"){
+    ratingList(null, true);
+  }
   else if(data == "matches"){
     sendUserMatches();
   }
@@ -12,9 +15,9 @@ function buttonsUseCases(data){
   else if(data == "profile_edit"){
     botSendMessage(chat_id,profileEditInfo);
   }
-  else if(data == "cancel"){
-    botEditMessage(chat_id, message_id, "Запись отменена");
-  }
+  // else if(data == "cancel"){
+  //   botEditMessage(chat_id, message_id, "Запись отменена");
+  // }
   else if(String(data).startsWith("confirm")){
     let matchId = String(data).split("_")[1];
     matchConfirmation(matchId);
@@ -48,5 +51,9 @@ function buttonsUseCases(data){
     let oppId = String(data).split("_")[2];
     let matchResult = String(data).split("_")[1];
     gameRecord(oppId, matchResult);
+  }
+  else if(String(data).startsWith("cancel")){
+    let userId = parseInt(String(data).split("_")[1]);
+    sendPlayerProfile(userId, true);
   }
 }

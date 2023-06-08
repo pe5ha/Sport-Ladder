@@ -36,7 +36,7 @@ function sendPlayerCard(){
   botSendMessage(chat_id, buildPlayerSelfCard(),keyboard,"HTML",true);
 }
 
-function sendPlayerProfile(userId){
+function sendPlayerProfile(userId, isUpdate = false){
   let keyboard = {
     inline_keyboard: [
       [
@@ -45,7 +45,12 @@ function sendPlayerProfile(userId){
     ]
   };
   if(userId == chat_id) keyboard = null;
-  botSendMessage(chat_id,buildPlayerCard(userId),keyboard,"HTML",true);
+  if(isUpdate){
+    botEditMessage(chat_id, message_id,buildPlayerCard(userId),keyboard,"HTML",true);
+  }
+  else{
+    botSendMessage(chat_id,buildPlayerCard(userId),keyboard,"HTML",true);
+  }
 }
 
 function buildPlayerSelfCard(){

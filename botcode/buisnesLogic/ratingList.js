@@ -1,17 +1,16 @@
-function ratingList(page=null){
+function ratingList(page=null, isUpdate = false){
   TelegramAPI.sendChatAction(token,chat_id,"typing");
   usersData.sort(function(a,b){
     return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
   });
-  let rating_list = "Рейтинг-лист игроков:\n";
+  let rating_list = "Рейтинг-лист игроков:\n(Данные на "+stringDate()+")\n";
   let N = 8;
-  let isUpdate = true;
 
   if(page == null){
-    isUpdate = false;
     let ratingRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title), user_id);
     page = Math.ceil(ratingRow/N)-1;
   }
+  else isUpdate = true;
 
   let totalPage = Math.ceil(usersData.length/N)-1;
   if(page>totalPage) page = 0;
@@ -30,6 +29,7 @@ function ratingList(page=null){
   keyboard.inline_keyboard.push(
       [
         {text: (page-1)<0?" ":"<",callback_data: (page-1)<0?"emptybtn":("ratingpage_"+(page-1))},
+        {text: "Обновить 🔄",callback_data: "rating_refresh"},
         {text: (page+1)>totalPage?" ":">",callback_data: (page+1)>totalPage?"emptybtn":("ratingpage_"+(page+1))},
       ],
   );

@@ -19,7 +19,10 @@ let usersData = [];
 
 // let token = process.env.BOT_TOKEN;
 let token = PropertiesService.getScriptProperties().getProperty('BOT_TOKEN');
-let SpreadsheetID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+SpreadsheetID = SpreadsheetApp.getActive().getId();
+if(!SpreadsheetID)
+  SpreadsheetID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+
 
 // google tables service variables
 let table = SpreadsheetApp.openById(SpreadsheetID);

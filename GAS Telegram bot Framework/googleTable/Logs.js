@@ -12,7 +12,7 @@
     tLog = table.getSheetByName(LogSheet.SheetName);
     let style = SpreadsheetApp.newTextStyle().setBold(true).setItalic(true).build();
     tLog.getRange(1,1,1,LogSheet.getColumnsOrder().length).setValues([LogSheet.getColumnsOrder()]).setTextStyle(style).setHorizontalAlignment("center");
-    tLog.use().deleteRows(3,998);
+    tLog.deleteRows(3,998);
   }
   tLog.insertRowBefore(2);
   let logdate = date ? stringDate(date*1000) : stringDate();

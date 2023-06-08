@@ -96,6 +96,10 @@ function matchEdit(matchId){
 }
 
 function matchForm(oppId, isFromDeepLink){
+  if(oppId == chat_id){
+    botSendMessage(chat_id,"Вы пытаетесь записать результат игры с самим собой, так нельзя 😅");
+    return;
+  }
 
   let opponentRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),oppId);
   if(opponentRow == -1){
@@ -145,7 +149,7 @@ function matchForm(oppId, isFromDeepLink){
         {text: "1-2",callback_data: "record_1-2_"+oppId},
       ],
       [
-        {text: "Отменить", callback_data: "cancel"},
+        {text: "Отменить", callback_data: "cancel_"+oppId},
       ]
     ]
   };
