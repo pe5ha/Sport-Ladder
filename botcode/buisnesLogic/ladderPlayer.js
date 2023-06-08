@@ -22,26 +22,44 @@ function sendPlayerCard(){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "Мои матчи",callback_data: "matches"},
-        {text: "Рейтинг лист",callback_data: "rating_list"},
-        {text: "Изменить профиль",callback_data: "profile_edit"}
+        {text: "Мои матчи 🗂",callback_data: "matches"},
+        {text: "Рейтинг лист 📋",callback_data: "rating_list"},
       ],
       [
-        {text: "Внести матч",callback_data: "add_match"},
-      ]
+        {text: "Изменить профиль ⚙️",callback_data: "profile_edit"}
+      ],
+      // [
+      //   {text: "Внести матч ✏️",callback_data: "add_match"},
+      // ]
     ]
   };
   botSendMessage(chat_id, buildPlayerSelfCard(),keyboard,"HTML",true);
 }
 
 function sendPlayerProfile(userId){
-  botSendMessage(chat_id,buildPlayerCard(userId));
+  let keyboard = {
+    inline_keyboard: [
+      [
+        {text: "Внести результат ✏️",callback_data: "matchvs_"+userId},
+      ],
+    ]
+  };
+  if(userId == chat_id) keyboard = null;
+  botSendMessage(chat_id,buildPlayerCard(userId),keyboard,"HTML",true);
 }
 
 function buildPlayerSelfCard(){
-  let playerCard = "Профиль игрока: <b>"+userLink(user.nick, user.name)+"</b>\nРейтинг: <b>"+user.rating+"</b>";
-  if(user.achievements) playerCard+="\nАчивки: "+user.achievements;
-  playerCard += "\nВсего игр: "+user.gamesCount+"\nБио: "+user.bio;
+  let playerNick = user.nick;
+  let playerName = user.name;
+  let playerRating = user.rating;
+  let playerGamesCount = user.gamesCount;
+  let playerBio = user.bio;
+  let playerAchivs = user.achievements;
+  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLink(playerNick, playerName)+"</b> ";
+  if(playerAchivs) playerCard += playerAchivs; // рядом с именем
+  playerCard += "\n<b>"+playerRating+"</b> рейтинг";
+  playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
+  playerCard += "\n\nО себе:\n"+playerBio;
   return playerCard;
 }
 
@@ -51,11 +69,13 @@ function buildPlayerCard(userId){
   let playerName = usersData[playerRow][tUsers.getCol(tUsers.name_Title)];
   let playerRating = usersData[playerRow][tUsers.getCol(tUsers.rating_Title)];
   let playerAchivs = usersData[playerRow][tUsers.getCol(tUsers.achievements_Title)];
-  let playerGamesCount = usersData[playerRow][tUsers.getCol(tUsers.games_count_Title)];
+  let playerGamesCount = usersData[playerRow][tUsers.getCol(tUsers.games_count_Title)] || 0;
   let playerBio = usersData[playerRow][tUsers.getCol(tUsers.bio_Title)];
-  let playerCard = "Профиль игрока: <b>"+userLink(playerNick, playerName)+"</b>\nРейтинг: <b>"+playerRating+"</b>";
-  if(playerAchivs) playerCard+="\nАчивки: "+playerAchivs;
-  playerCard += "\nВсего игр: "+playerGamesCount+"\nБио: "+playerBio;
+  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLink(playerNick, playerName)+"</b> ";
+  if(playerAchivs) playerCard += playerAchivs; // рядом с именем
+  playerCard += "\n<b>"+playerRating+"</b> рейтинг";
+  playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
+  playerCard += "\n\nО себе:\n"+playerBio;
   return playerCard;
 }
 

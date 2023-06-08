@@ -1,17 +1,15 @@
 
-function gameRecord(){
-  let opponentName = text.split("\n")[0];
-  let gameResult = text.split("\n")[1];
-  let oppId = findOpponentByName(opponentName);
-  if(!oppId) {
-    botSendMessage(chat_id, "Ошибка. Игрок с таким именем в базе не найден: "+ opponentName);
-    return;
-  }
-  if(!checkGameResult(gameResult)){
-    botSendMessage(chat_id, "Ошибка. Неккоректный формат результата игры.");
+
+
+
+function gameRecord(oppId, matchRes){
+  let opponentRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),oppId);
+  if(opponentRow == -1){
+    botSendMessage(chat_id, "Ошибка. Игрок не найден.");
     return;
   }
 
+  let opponentName = usersData[opponentRow][tUsers.getCol(tUsers.name_Title)];
 
   tPendingMatches.use().insertRowBefore(2);
 
@@ -21,14 +19,16 @@ function gameRecord(){
     p2_id: oppId,
     p1_name: name,
     p2_name: opponentName,
-    result: gameResult,
+    result: matchRes,
     gameDate: new Date(),
     recordDate: new Date(),
     p1_rating: 0,
     p2_rating: 0,
   }
-  let p1_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p1_id);
-  let p2_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p2_id);
+  let p1_user_row = user.rowInTable - 1;
+  // let p1_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p1_id);
+  let p2_user_row = opponentRow;
+  // let p2_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p2_id);
   match.p1_rating = usersData[p1_user_row][tUsers.getCol(tUsers.rating_Title)];
   match.p2_rating = usersData[p2_user_row][tUsers.getCol(tUsers.rating_Title)];
   
@@ -38,13 +38,13 @@ function gameRecord(){
       match.p1_rating, match.p2_rating, "'"+match.result, true, false, match.gameDate, match.recordDate]]);
 
   
-  botSendMessage(chat_id, buildPrematchCard(match));
+  botEditMessage(chat_id, message_id, buildPrematchCard(match));
   botSendMessage(chat_id, "Матч сохранен. Ожидается подтверждение соперником.");
   let confirmKeyboard = {
     inline_keyboard: [
       [
-        {text: "Подтвердить",callback_data: "confirm_"+match.matchId},
-        {text: "Редактировать",callback_data: "change_"+match.matchId},
+        {text: "Подтвердить ✅",callback_data: "confirm_"+match.matchId},
+        {text: "Редактировать ✏️",callback_data: "change_"+match.matchId},
       ]
     ]
   };

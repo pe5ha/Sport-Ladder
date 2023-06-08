@@ -52,7 +52,7 @@ function useCases(){
     user.setUserCurrentAction(UserActions.input_name);
     botSendMessage(chat_id, needName);
   }
-  else gameRecord();
+  // else gameRecord();
   
   
 
@@ -69,7 +69,7 @@ function startCommand(payload=null){
 
   // deep link
   if(payload){ 
-
+    matchForm(payload, true);
   }
   // просто /start
   else{

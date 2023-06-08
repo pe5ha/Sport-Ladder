@@ -67,7 +67,7 @@
     user.phone = usersData[i][tUsers.getCol(tUsers.phone_Title)];
     user.bio = usersData[i][tUsers.getCol(tUsers.bio_Title)];
     user.rating = parseInt(usersData[i][tUsers.getCol(tUsers.rating_Title)]);
-    user.gamesCount = parseInt(usersData[i][tUsers.getCol(tUsers.games_count_Title)]);
+    user.gamesCount = parseInt(usersData[i][tUsers.getCol(tUsers.games_count_Title)]) || 0;
     user.achievements = usersData[i][tUsers.getCol(tUsers.achievements_Title)];
 
 
