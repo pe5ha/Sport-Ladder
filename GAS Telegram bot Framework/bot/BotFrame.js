@@ -19,7 +19,10 @@ let usersData = [];
 
 // let token = process.env.BOT_TOKEN;
 let token = PropertiesService.getScriptProperties().getProperty('BOT_TOKEN');
-SpreadsheetID = SpreadsheetApp.getActive().getId();
+let activeSheet = SpreadsheetApp.getActive();
+let SpreadsheetID;
+if(activeSheet)
+  SpreadsheetID = activeSheet.getId();
 if(!SpreadsheetID)
   SpreadsheetID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
 

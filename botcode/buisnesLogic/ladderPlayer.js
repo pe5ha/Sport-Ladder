@@ -22,11 +22,11 @@ function sendPlayerCard(){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "Мои матчи 🗂",callback_data: "matches"},
-        {text: "Рейтинг лист 📋",callback_data: "rating_list"},
+        {text: "👉 ОБЩИЙ РЕЙТИНГ (+ввести матч)",callback_data: "rating_list"},
       ],
-      [
-        {text: "Изменить профиль ⚙️",callback_data: "profile_edit"}
+      [ 
+        {text: "Мои матчи",callback_data: "matches_"+user_id},
+        {text: "Мой профиль",callback_data: "profile_edit"}
       ],
       // [
       //   {text: "Внести матч ✏️",callback_data: "add_match"},
@@ -40,8 +40,11 @@ function sendPlayerProfile(userId, isUpdate = false){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "Внести результат ✏️",callback_data: "matchvs_"+userId},
+        {text: "Внести результат матча",callback_data: "matchvs_"+userId},
       ],
+      [
+        {text: "Список матчей",callback_data: "matches_"+userId},
+      ]
     ]
   };
   if(userId == chat_id) keyboard = null;
@@ -60,7 +63,7 @@ function buildPlayerSelfCard(){
   let playerGamesCount = user.gamesCount;
   let playerBio = user.bio;
   let playerAchivs = user.achievements;
-  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLink(playerNick, playerName)+"</b> ";
+  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLinkById(playerName, user_id)+"</b> ";
   if(playerAchivs) playerCard += playerAchivs; // рядом с именем
   playerCard += "\n<b>"+playerRating+"</b> рейтинг";
   playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
@@ -76,7 +79,7 @@ function buildPlayerCard(userId){
   let playerAchivs = usersData[playerRow][tUsers.getCol(tUsers.achievements_Title)];
   let playerGamesCount = usersData[playerRow][tUsers.getCol(tUsers.games_count_Title)] || 0;
   let playerBio = usersData[playerRow][tUsers.getCol(tUsers.bio_Title)];
-  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLink(playerNick, playerName)+"</b> ";
+  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLinkById(playerName, userId)+"</b> ";
   if(playerAchivs) playerCard += playerAchivs; // рядом с именем
   playerCard += "\n<b>"+playerRating+"</b> рейтинг";
   playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
@@ -105,4 +108,10 @@ function userLink(nick, name){
   if(!nick) return name;
   let nickText = String(nick).replace("@","");
   return "<a href=\"https://t.me/"+nickText+"\">"+name+"</a>";    
+}
+function userLinkById(name, id){
+  return "<a href=\"tg://user?id="+id+"\">"+name+"</a>";    
+}
+function userDeeplink(name, id){
+  return "<a href=\"https://t.me/"+BotName+"?start="+id+"\">"+name+"</a>";    
 }

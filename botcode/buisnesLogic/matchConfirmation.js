@@ -4,7 +4,7 @@ function buildMatchCard(match){
   let p2_oldRating = match.p2_rating - match.p2_rating_change;
   let matchCard = "<b>"+ match.p1_name + "</b> ["+p1_oldRating+"->"+match.p1_rating+"("+(match.p1_rating_change<0?"":"+") + match.p1_rating_change + 
   ")] vs <b>" + match.p2_name + "</b> ["+p2_oldRating+"->"+match.p2_rating+"("+(match.p2_rating_change<0?"":"+") + match.p2_rating_change + ")]\n";
-  matchCard += "Результат: <b>" + match.result + "</b>\nДата: " + stringDate(match.gameDate, true);
+  matchCard += "Результат: <b>" + match.result + "</b> Дата: " + stringDate(match.gameDate, true);
   return matchCard;
 }
 

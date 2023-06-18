@@ -69,7 +69,8 @@ function startCommand(payload=null){
 
   // deep link
   if(payload){ 
-    matchForm(payload, true);
+    let userId = parseInt(payload);
+    sendPlayerProfile(userId);
   }
   // просто /start
   else{

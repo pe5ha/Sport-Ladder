@@ -1,5 +1,57 @@
 
-function sendUserMatches(page=null){
+
+function sendUserMatches(userId){
+  TelegramAPI.sendChatAction(token,chat_id,"typing");
+  let matches = tMatches.use().getRange(tMatches.allRange).getValues();
+  matches = matches.filter(m => m[tMatches.getCol(tMatches.id_p1_Title)] == userId || m[tMatches.getCol(tMatches.id_p2_Title)] == userId);
+
+  let N = 40;
+
+  let userRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),userId);
+  if(userRow == -1){
+    botSendMessage(chat_id, "Ошибка. Игрок не найден.");
+    return;
+  }
+
+  let userName = usersData[userRow][tUsers.getCol(tUsers.name_Title)];
+
+  let matchList = "Сыгранные матчи игрока <b>"+userName+"</b>:\n\n";
+
+  let j = 0;
+  for(let i=0; i<matches.length;i++){
+    if(!matches[i][0]) break;
+
+    let match = {
+      matchId: matches[i][tMatches.getCol(tMatches.id_Title)],
+      p1_id: matches[i][tMatches.getCol(tMatches.id_p1_Title)],
+      p2_id: matches[i][tMatches.getCol(tMatches.id_p2_Title)],
+      p1_name: matches[i][tMatches.getCol(tMatches.name_p1_Title)],
+      p2_name: matches[i][tMatches.getCol(tMatches.name_p2_Title)],
+      result: matches[i][tMatches.getCol(tMatches.result_Title)],
+      gameDate: matches[i][tMatches.getCol(tMatches.date_Title)],
+      recordDate: matches[i][tMatches.getCol(tMatches.record_date_Title)],
+      p1_rating: matches[i][tMatches.getCol(tMatches.p1_rating_Title)],
+      p2_rating: matches[i][tMatches.getCol(tMatches.p2_rating_Title)],
+      p1_rating_change: matches[i][tMatches.getCol(tMatches.rating_change_p1_Title)],
+      p2_rating_change: matches[i][tMatches.getCol(tMatches.rating_change_p2_Title)],
+    }
+    matchList+= buildMatchCard(match)+"\n\n";
+
+
+    j++;
+    if(j>=N){
+      botSendMessage(chat_id, matchList);
+      matchList = "Сыгранные матчи игрока <b>"+userName+"</b>:\n\n";
+      j = 0;
+    }
+  }
+  if(j>0){
+    botSendMessage(chat_id, matchList);
+  }
+}
+
+
+function sendUserMatches_old(page=null){
   TelegramAPI.sendChatAction(token,chat_id,"typing");
   let matches = tMatches.use().getRange(tMatches.allRange).getValues();
   matches = matches.filter(m => m[tMatches.getCol(tMatches.id_p1_Title)] == user_id || m[tMatches.getCol(tMatches.id_p2_Title)] == user_id);
