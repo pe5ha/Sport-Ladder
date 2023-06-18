@@ -5,18 +5,19 @@
 function useCases(){
   // start
 
-  if(user.currentAction == UserActions.input_phone){
-    if(contents.message.contact) {
-      user.setUserPhone(contents.message.contact.phone_number);
-      user.setUserCurrentAction(UserActions.input_name);
-      botSendMessage(chat_id, needName);
-      return;
-    }
-  }
+  // if(user.currentAction == UserActions.input_phone){
+  //   if(contents.message.contact) {
+  //     user.setUserPhone(contents.message.contact.phone_number);
+  //     user.setUserCurrentAction(UserActions.input_name);
+  //     botSendMessage(chat_id, needName);
+  //     return;
+  //   }
+  // }
   
   if(user.currentAction == UserActions.input_name){
     user.setUserName(text);
     user.setUserCurrentAction(UserActions.input_bio);
+    user.setRating(1000);
     botSendMessage(chat_id, needBio);
     return;
   }
@@ -26,7 +27,6 @@ function useCases(){
     user.setUserCurrentAction(UserActions.without_action);
     if(user.role != "участник"){
       user.setUserRole("участник");
-      user.setRating(1000);
     }
     botSendMessage(chat_id, regDone);
     sendPlayerCard();

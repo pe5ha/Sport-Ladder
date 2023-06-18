@@ -74,10 +74,10 @@ function matchConfirmation(matchId){
 function processRatingChange(match){
   let winner = whoWinner(match.result);
   if (winner == 1){
-    [match.p1_rating_change, match.p2_rating_change] = ratingChangeAlg(match.p1_rating, match.p2_rating);
+    [match.p1_rating_change, match.p2_rating_change] = ratingChangeAlg(match.p1_rating, match.p2_rating, match.result);
   }
   else{
-    [match.p2_rating_change, match.p1_rating_change] = ratingChangeAlg(match.p2_rating, match.p1_rating);
+    [match.p2_rating_change, match.p1_rating_change] = ratingChangeAlg(match.p2_rating, match.p1_rating, match.result);
   }
 }
 
@@ -96,8 +96,8 @@ function whoWinner(res){
   if(res == "ret2"){
     return 1;
   }
-  let score1 = res.split("-")[0];
-  let score2 = res.split("-")[1];
+  let score1 = parseInt(res.split("-")[0]);
+  let score2 = parseInt(res.split("-")[1]);
   if(score1>score2) return 1;
   if(score1<score2) return 2;
 }

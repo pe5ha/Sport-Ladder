@@ -5,6 +5,10 @@ function sendUserMatches(userId){
   let matches = tMatches.use().getRange(tMatches.allRange).getValues();
   matches = matches.filter(m => m[tMatches.getCol(tMatches.id_p1_Title)] == userId || m[tMatches.getCol(tMatches.id_p2_Title)] == userId);
 
+  if(matches.length<1){
+    botSendMessage(chat_id, zeroMatches);
+    return;
+  }
   let N = 40;
 
   let userRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),userId);

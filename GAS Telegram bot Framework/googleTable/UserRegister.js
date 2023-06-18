@@ -64,7 +64,6 @@
     user.currentAction = usersData[i][tUsers.getCol(tUsers.current_action_Title)];
     user.role = usersData[i][tUsers.getCol(tUsers.role_Title)];
     user.isNewUser = false;
-    user.phone = usersData[i][tUsers.getCol(tUsers.phone_Title)];
     user.bio = usersData[i][tUsers.getCol(tUsers.bio_Title)];
     user.rating = parseInt(usersData[i][tUsers.getCol(tUsers.rating_Title)]);
     user.gamesCount = parseInt(usersData[i][tUsers.getCol(tUsers.games_count_Title)]) || 0;

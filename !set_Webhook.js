@@ -3,7 +3,7 @@ function setWebhook() {
   let token = PropertiesService.getScriptProperties().getProperty('BOT_TOKEN'); 
 
   // 2. Вставить в кавычки полученный после развертывания URL
-  let webAppUrl = "";
+  let webAppUrl = "https://script.google.com/macros/s/AKfycbysKFMIZ92d___S9LMKhwVOHBJEgXO1Npm2oGb-s-WEaHyMZwcgV0Yd7smBgfb3iRiXcg/exec";
 
   // 3. Выполнить эту функцию setWebhook() 
 

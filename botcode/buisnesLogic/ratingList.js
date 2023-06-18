@@ -1,25 +1,26 @@
 function ratingList(page=null, isUpdate = false){
   TelegramAPI.sendChatAction(token,chat_id,"typing");
+  usersData = usersData.filter(u => u[tUsers.getCol(tUsers.role_Title)] == "участник");
   usersData.sort(function(a,b){
     return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
   });
-  let rating_list = "Рейтинг-лист игроков:\n(Данные на "+stringDate()+")\n";
+  let rating_list = "Общий рейтинг участников ладдера:\n(Данные на "+stringDate()+")\n\n";
   let N = 100; // 100 игроков в одном сообщении
 
   let j = 0;
-  for(let i=1; i<usersData.length;i++){
+  for(let i=0; i<usersData.length;i++){
     if(!usersData[i][1]) break;
     let user_link = userDeeplink(usersData[i][tUsers.getCol(tUsers.name_Title)], usersData[i][tUsers.getCol(tUsers.id_Title)])
-    rating_list += i+". <b>"+ user_link +"</b> - "+ usersData[i][tUsers.getCol(tUsers.rating_Title)]+"\n";
+    rating_list += (i+1)+". <b>"+ user_link +"</b> - "+ usersData[i][tUsers.getCol(tUsers.rating_Title)]+"\n";
     j++;
     if(j>=N){
-      botSendMessage(chat_id, rating_list);
-      rating_list = "Рейтинг-лист игроков:\n(Данные на "+stringDate()+")\n";
+      botSendMessage(chat_id, rating_list, null, "HTML", true);
+      rating_list = "Общий рейтинг участников ладдера:\n(Данные на "+stringDate()+")\n\n";
       j = 0;
     }
   }
   if(j>0){
-    botSendMessage(chat_id, rating_list);
+    botSendMessage(chat_id, rating_list, null, "HTML", true);
   }
 }
 
@@ -32,7 +33,7 @@ function ratingList_Old(page=null, isUpdate = false){
   usersData.sort(function(a,b){
     return b[tUsers.getCol(tUsers.rating_Title)] - a[tUsers.getCol(tUsers.rating_Title)];
   });
-  let rating_list = "Рейтинг-лист игроков:\n(Данные на "+stringDate()+")\n";
+  let rating_list = "Общий рейтинг участников ладдера:\n(Данные на "+stringDate()+")\n\n";
   let N = 8;
 
   if(page == null){

@@ -1,16 +1,16 @@
 function checkLadderReg(){
   if(user.role!="участник"){
-    let keyboard = {
-      keyboard: [
-        [
-          {text: "Отправить свой номер", request_contact: true},
-        ]
-      ],
-      one_time_keyboard: true,
-      resize_keyboard: true,
-    };
-    user.setUserCurrentAction(UserActions.input_phone);
-    botSendMessage(chat_id, needReg, keyboard);
+    // let keyboard = {
+    //   keyboard: [
+    //     [
+    //       {text: "Отправить свой номер", request_contact: true},
+    //     ]
+    //   ],
+    //   one_time_keyboard: true,
+    //   resize_keyboard: true,
+    // };
+    user.setUserCurrentAction(UserActions.input_name);
+    botSendMessage(chat_id, needReg);
     return false;
   }
 
@@ -22,11 +22,11 @@ function sendPlayerCard(){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "👉 ОБЩИЙ РЕЙТИНГ (+ввести матч)",callback_data: "rating_list"},
+        {text: "🏆 ОБЩИЙ РЕЙТИНГ (+ внести матч)",callback_data: "rating_list"},
       ],
       [ 
-        {text: "Мои матчи",callback_data: "matches_"+user_id},
-        {text: "Мой профиль",callback_data: "profile_edit"}
+        {text: "👀 Мои матчи",callback_data: "matches_"+user_id},
+        {text: "💪 Мой профиль",callback_data: "profile_edit"}
       ],
       // [
       //   {text: "Внести матч ✏️",callback_data: "add_match"},
@@ -40,10 +40,10 @@ function sendPlayerProfile(userId, isUpdate = false){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "Внести результат матча",callback_data: "matchvs_"+userId},
+        {text: "👉 Внести результат матча",callback_data: "matchvs_"+userId},
       ],
       [
-        {text: "Список матчей",callback_data: "matches_"+userId},
+        {text: "👀 Список матчей",callback_data: "matches_"+userId},
       ]
     ]
   };
@@ -63,11 +63,11 @@ function buildPlayerSelfCard(){
   let playerGamesCount = user.gamesCount;
   let playerBio = user.bio;
   let playerAchivs = user.achievements;
-  let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLinkById(playerName, user_id)+"</b> ";
-  if(playerAchivs) playerCard += playerAchivs; // рядом с именем
-  playerCard += "\n<b>"+playerRating+"</b> рейтинг";
-  playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
-  playerCard += "\n\nО себе:\n"+playerBio;
+  let playerCard = "<b>Главное меню Ладдера 🪜</b>\n<i>powered by SportyHQ (ex.SquashMatrix)</i>\n\n<b>"+userLinkById(playerName, user_id)+"</b> ";
+  playerCard += "\nМой рейтинг: <b>"+playerRating+"</b> (очков)";
+  playerCard += "\nМной сыграно: <b>"+playerGamesCount+"</b> (матчей)";
+  playerCard += "\n\nО себе: "+playerBio;
+  if(playerAchivs) playerCard += "\n\nДостижения:\n"+playerAchivs;
   return playerCard;
 }
 
@@ -80,10 +80,10 @@ function buildPlayerCard(userId){
   let playerGamesCount = usersData[playerRow][tUsers.getCol(tUsers.games_count_Title)] || 0;
   let playerBio = usersData[playerRow][tUsers.getCol(tUsers.bio_Title)];
   let playerCard = "<b>Профиль игрока</b>\n\n<b>"+userLinkById(playerName, userId)+"</b> ";
-  if(playerAchivs) playerCard += playerAchivs; // рядом с именем
-  playerCard += "\n<b>"+playerRating+"</b> рейтинг";
-  playerCard += "\n<b>"+playerGamesCount+"</b> матчей";
-  playerCard += "\n\nО себе:\n"+playerBio;
+  playerCard += "\nРейтинг: <b>"+playerRating+"</b> (очков)";
+  playerCard += "\nСыграно: <b>"+playerGamesCount+"</b> (матчей)";
+  playerCard += "\n\nОб игроке:\n"+playerBio;
+  if(playerAchivs) playerCard += "\n\nДостижения:\n"+playerAchivs;
   return playerCard;
 }
 

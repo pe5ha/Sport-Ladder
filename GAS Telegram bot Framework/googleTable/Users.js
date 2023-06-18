@@ -8,7 +8,6 @@ let user = {
   role: null,
   rowInTable: null,
   isNewUser: null,
-  phone: null,
   bio: null,
   rating: null,
   gamesCount: null,
@@ -17,10 +16,7 @@ let user = {
     tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.role_Title)+1).setValue(newRole);
     this.role = newRole;
   },
-  setUserPhone(newPhone){
-    tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.phone_Title)+1).setValue(newPhone);
-    this.phone = newPhone;
-  },
+
   setUserBio(newBio){
     tUsers.use().getRange(this.rowInTable,tUsers.getCol(tUsers.bio_Title)+1).setValue(newBio);
     this.bio = newBio;

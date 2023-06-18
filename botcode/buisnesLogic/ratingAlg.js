@@ -1,6 +1,6 @@
 
 
-function ratingChangeAlg(winner_rating, loser_rating){
+function ratingChangeAlg(winner_rating, loser_rating, res){
   if(winner_rating >= loser_rating){
     let diff = winner_rating - loser_rating;
     if(diff == 0) return [5,-5];
@@ -11,7 +11,12 @@ function ratingChangeAlg(winner_rating, loser_rating){
     if(diff <= 20) return [3,-3];
     if(diff <= 25) return [2,-2];
     if(diff <= 31) return [1,-1];
-    else return [0,0];
+    if(diff >= 80) {
+      let score1 = parseInt(res.split("-")[0]);
+      let score2 = parseInt(res.split("-")[1]);
+      return [0, score1 > score2 ? score2*2 : score1*2];
+    }
+    return [0,0];
   }
   else {
     let diff = loser_rating - winner_rating;

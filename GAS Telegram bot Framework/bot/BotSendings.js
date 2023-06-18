@@ -27,7 +27,7 @@ function afterSending(telegramResp,action=""){
   else{ // ошибка отправки
 
     // !!!!!!!!!!!!!!!!!!!!!! delete later
-    botSendText(235733832,JSON.stringify(telegramResp));
+    botSendText(errorMessagesChat, JSON.stringify(telegramResp));
 
     if(telegramResp.error_code==400){
       // {"ok":false,"error_code":400,"description":"Bad Request: chat not found"}
