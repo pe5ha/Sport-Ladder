@@ -15,7 +15,16 @@ function useCases(){
   // }
   
   if(user.currentAction == UserActions.input_name){
-    user.setUserName(text);
+    if(text == "/start") user.setUserName(name);
+    else {
+      text = text
+         .replace(/&/g, "")
+         .replace(/</g, "")
+         .replace(/>/g, "")
+         .replace(/"/g, "");
+      if(!text) text = name;
+      user.setUserName(text);
+    }
     user.setUserCurrentAction(UserActions.input_bio);
     user.setRating(1000);
     botSendMessage(chat_id, needBio);
@@ -23,7 +32,15 @@ function useCases(){
   }
 
   if(user.currentAction == UserActions.input_bio){
-    user.setUserBio(text);
+    if(text == "/start") user.setUserBio("-");
+    else {
+      text = text
+         .replace(/&/g, "")
+         .replace(/</g, "")
+         .replace(/>/g, "")
+         .replace(/"/g, "");
+      user.setUserBio(text)
+    };
     user.setUserCurrentAction(UserActions.without_action);
     if(user.role != "участник"){
       user.setUserRole("участник");
@@ -32,7 +49,6 @@ function useCases(){
     sendPlayerCard();
     return;
   }
-
 
 
   if(!checkLadderReg()) return;
