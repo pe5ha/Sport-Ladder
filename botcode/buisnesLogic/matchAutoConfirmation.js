@@ -12,5 +12,4 @@ function confirmationTrigger(){
       matchConfirmation(pendingMatches[i][0], pendingMatches);
     }
   }
-  
 }
