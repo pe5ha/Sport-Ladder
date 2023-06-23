@@ -22,11 +22,14 @@ function sendPlayerCard(){
   let keyboard = {
     inline_keyboard: [
       [
-        {text: "🏆 ОБЩИЙ РЕЙТИНГ (+ внести матч)",callback_data: "rating_list"},
+        {text: "🏆 РЕЙТИНГ ЛАДДЕРА",callback_data: "rating_list_active"},
+      ],
+      [
+        {text: "📘 Все участники (+ внести матч)",callback_data: "rating_list"},
       ],
       [ 
         {text: "👀 Мои матчи",callback_data: "matches_"+user_id},
-        {text: "💪 Мой профиль",callback_data: "profile_edit"}
+        {text: "⚙️ Мой профиль",callback_data: "profile_edit"}
       ],
       // [
       //   {text: "Внести матч ✏️",callback_data: "add_match"},
@@ -63,7 +66,7 @@ function buildPlayerSelfCard(){
   let playerGamesCount = user.gamesCount;
   let playerBio = user.bio;
   let playerAchivs = user.achievements;
-  let playerCard = "<b>Главное меню Ладдера 🪜</b>\n<i>powered by SportyHQ (ex.SquashMatrix)</i>\n\n<b>"+userLinkById(playerName, user_id)+"</b> ";
+  let playerCard = "<b>Главное меню Ладдера 🪜</b>\n<i>powered by SportyHQ</i>\n\n<b>"+userLinkById(playerName, user_id)+"</b> ";
   playerCard += "\nМой рейтинг: <b>"+playerRating+"</b> (очков)";
   playerCard += "\nМной сыграно: <b>"+playerGamesCount+"</b> (матчей)";
   playerCard += "\n\nО себе: "+playerBio;

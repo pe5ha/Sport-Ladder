@@ -3,6 +3,9 @@ function buttonsUseCases(data){
   if(data == "rating_list"){
     ratingList();
   }
+  else if(data == "rating_list_active"){
+    ratingListActive();
+  }
   else if(data == "rating_refresh"){
     ratingList(null, true);
   }

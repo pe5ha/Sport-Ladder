@@ -3,6 +3,12 @@
 
 
 function gameRecord(oppId, matchRes){
+  let pendingMatches = tPendingMatches.use().getRange(tPendingMatches.allRange).getValues();
+  for(let i=0; i<pendingMatches.length;i++){
+    if(pendingMatches[i][tPendingMatches.getCol(tPendingMatches.id_Title)] == message_id){
+      return;
+    }
+  }
   let opponentRow = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),oppId);
   if(opponentRow == -1){
     botSendMessage(chat_id, "Ошибка. Игрок не найден.");

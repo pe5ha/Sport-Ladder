@@ -8,9 +8,9 @@ function buildMatchCard(match){
   return matchCard;
 }
 
-function matchConfirmation(matchId){
+function matchConfirmation(matchId, pendingMatches=null){
 
-  let pendingMatches = tPendingMatches.use().getRange(tPendingMatches.allRange).getValues();
+  if(!pendingMatches) pendingMatches = tPendingMatches.use().getRange(tPendingMatches.allRange).getValues();
   let row = -1;
   let i;
   for(i=1; i<pendingMatches.length;i++){
@@ -20,14 +20,10 @@ function matchConfirmation(matchId){
     }
   }
   if(row == -1) {
-    botSendMessage(chat_id,"Ошибка: матч не найден");
+    botSendMessage(chat_id,"Ошибка: матч не найден, либо уже подтверждён");
     return;
   }
-
   
-
-  
-
   let match = {
     matchId: matchId,
     p1_id: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.id_p1_Title)],
@@ -37,11 +33,17 @@ function matchConfirmation(matchId){
     result: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.result_Title)],
     gameDate: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.date_Title)],
     recordDate: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.record_date_Title)],
-    p1_rating: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.p1_rating_Title)],
-    p2_rating: pendingMatches[i][tPendingMatches.getCol(tPendingMatches.p2_rating_Title)],
+    p1_rating: 1000,
+    p2_rating: 1000,
     p1_rating_change: 0,
     p2_rating_change: 0,
   }
+
+  let p1_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p1_id);
+  let p2_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p2_id);
+
+  match.p1_rating = usersData[p1_user_row][tUsers.getCol(tUsers.rating_Title)];
+  match.p2_rating = usersData[p2_user_row][tUsers.getCol(tUsers.rating_Title)];
 
   processRatingChange(match);
 
@@ -54,8 +56,6 @@ function matchConfirmation(matchId){
     [match.matchId,match.p1_id,match.p2_id,match.p1_name,match.p2_name,"'"+match.result,match.p1_rating,match.p2_rating,
     match.p1_rating_change,match.p2_rating_change,match.gameDate,match.recordDate]]);
 
-  let p1_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p1_id);
-  let p2_user_row = findRowIn2dRange(usersData,tUsers.getCol(tUsers.id_Title),match.p2_id);
   let p1_gamesCount = (parseInt(usersData[p1_user_row][tUsers.getCol(tUsers.games_count_Title)]) || 0) + 1;
   let p2_gamesCount = (parseInt(usersData[p2_user_row][tUsers.getCol(tUsers.games_count_Title)]) || 0) + 1;
   tUsers.use().getRange(p1_user_row+1,tUsers.getCol(tUsers.rating_Title)+1, 1, 3).setValues([[match.p1_rating, stringDate(), p1_gamesCount]]);
@@ -80,7 +80,6 @@ function processRatingChange(match){
     [match.p2_rating_change, match.p1_rating_change] = ratingChangeAlg(match.p2_rating, match.p1_rating, match.result);
   }
 }
-
 
 /**
  * 
